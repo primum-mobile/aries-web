@@ -47,19 +47,19 @@ export default function App() {
             <div className="relative z-10 max-w-2xl">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-medium tracking-wide text-[#b2b7c0] shadow-sm backdrop-blur">
                 <span className="h-2 w-2 rounded-full bg-[#00ff99]" />
-                Morinus 10.x — release name <span className="text-white">Aries</span>
+                Morinus 10.x — codename <span className="text-white">Aries</span>
               </div>
 
               <h1 className="max-w-3xl text-5xl font-semibold leading-[1.02] tracking-[-0.04em] text-[#f4f4f5] md:text-6xl">
-                Traditional astrology software,
-                <span className="block text-[#888d97]">rebuilt on Python 3.</span>
+                The full traditional toolkit,
+                <span className="block text-[#888d97]">in a single program.</span>
               </h1>
 
               <p className="mt-6 max-w-xl text-lg leading-8 text-[#a3a8b3]">
-                Aries is the 10.x release of Morinus — the open-source astrology program first written by
-                Robert Nagy and continued by a chain of contributors since. This version migrates the codebase
-                from Python 2 to Python 3, modernizes the GUI, and adds a keyboard-driven interaction model
-                for exploratory work.
+                Natal, transits, revolutions, synastry, and mundane charts. Primary Directions, Continuous
+                Profections, Firdaria, Decennials, Zodiacal Releasing, Circumambulations, Time Lords. Fixed
+                stars, Arabic Parts, Antiscia, Dodecatemoria. All in one keyboard-driven workspace, running
+                on Swiss Ephemeris.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -67,22 +67,22 @@ export default function App() {
                   href="#download"
                   className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-medium text-[#101217] transition hover:-translate-y-0.5"
                 >
-                  Download for macOS
+                  Get Aries for Mac
                 </a>
                 <a
-                  href={REPO}
+                  href="#features"
                   className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 text-sm font-medium text-[#d4d4d8] shadow-sm transition hover:-translate-y-0.5 hover:bg-white/[0.06]"
                 >
-                  Build from source
+                  See what's inside
                 </a>
               </div>
 
               <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
                 {[
-                  ['Python 3', 'Migrated from Py2'],
-                  ['Swiss Ephemeris', 'High-precision engine'],
-                  ['Keyboard-driven', 'Time stepping with arrow keys'],
-                  ['GPL v3', 'Free and open source'],
+                  ['Primary Directions', 'Speculum & keys'],
+                  ['Zodiacal Releasing', 'Hellenistic timing'],
+                  ['Continuous Profections', 'Year-lord stepping'],
+                  ['Transit Search', 'Exact aspect finder'],
                 ].map(([title, text]) => (
                   <div key={title} className="rounded-2xl border border-white/8 bg-white/[0.03] p-4 shadow-[0_12px_30px_rgba(0,0,0,0.18)] backdrop-blur">
                     <div className="text-sm font-medium text-[#f4f4f5]">{title}</div>
@@ -136,54 +136,74 @@ export default function App() {
 
         <section id="features" className="mx-auto max-w-7xl px-6 py-10 lg:px-8 lg:py-16">
           <div className="mb-8 max-w-2xl">
-            <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">What's in this release</div>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[#f4f4f5] md:text-5xl">Python 3 base, modern GUI, same astrology.</h2>
+            <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">What's inside</div>
+            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[#f4f4f5] md:text-5xl">Every technique a traditional astrologer actually uses.</h2>
           </div>
 
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {[
-              {
-                title: 'Python 3 migration',
-                body: 'The full codebase has been moved off Python 2. Calculation correctness and technique coverage are preserved from previous versions.',
-              },
-              {
-                title: 'Sidebar workspace',
-                body: 'Navigation is unified into a single sidebar across chart types, tables, and time-lord views. No more nested menus to hunt through.',
-              },
-              {
-                title: 'Keyboard time stepping',
-                body: 'Arrow keys step time on almost every chart. Modifier keys change the step size. Shift + ↑/↓ jumps through moon phases on transit charts.',
-              },
-              {
-                title: 'Secondary ring modes',
-                body: 'Cmd + G cycles the secondary ring between Dodecatemoria, Arabic Parts, Fixed Stars, and Antiscia without leaving the chart.',
-              },
-            ].map((item) => (
-              <div key={item.title} className="rounded-[1.75rem] border border-white/8 bg-white/[0.03] p-6 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
-                <div className="text-lg font-medium text-[#f4f4f5]">{item.title}</div>
-                <p className="mt-3 text-sm leading-7 text-[#9aa0aa]">{item.body}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 grid gap-5 md:grid-cols-2">
+          <div className="grid gap-5 md:grid-cols-2">
             <div className="rounded-[1.75rem] border border-white/8 bg-white/[0.03] p-6 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
               <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Charts</div>
-              <div className="mt-3 text-lg font-medium text-[#f4f4f5]">Natal, transits, revolutions, synastry, mundane.</div>
-              <p className="mt-3 text-sm leading-7 text-[#9aa0aa]">
-                Natal and progressed charts, Solar and Lunar Revolutions, Synastry, and Mundane charts.
-                Transit Search is available as a separate engine (shortcut <kbd className="rounded bg-white/10 px-1.5 py-0.5 text-xs text-[#e4e4e7]">S</kbd>).
-              </p>
+              <div className="mt-3 text-lg font-medium text-[#f4f4f5]">From radix to mundane, eclipses included.</div>
+              <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-[#a3a8b3]">
+                <li>Natal</li>
+                <li>Transits</li>
+                <li>Solar Revolutions</li>
+                <li>Lunar Revolutions</li>
+                <li>Secondary Progressions</li>
+                <li>Minor &amp; Tertiary Progressions</li>
+                <li>Synastry</li>
+                <li>Composites &amp; Davison</li>
+                <li>Mundane charts</li>
+                <li>Eclipses &amp; ingresses</li>
+              </ul>
             </div>
+
             <div className="rounded-[1.75rem] border border-white/8 bg-white/[0.03] p-6 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
-              <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Techniques</div>
-              <div className="mt-3 text-lg font-medium text-[#f4f4f5]">The traditional set, intact.</div>
+              <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Time lords &amp; forecasting</div>
+              <div className="mt-3 text-lg font-medium text-[#f4f4f5]">The predictive toolkit, not a subset of it.</div>
+              <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-[#a3a8b3]">
+                <li>Profections</li>
+                <li>Continuous Profections</li>
+                <li>Firdaria</li>
+                <li>Decennials</li>
+                <li>Zodiacal Releasing</li>
+                <li>Circumambulations</li>
+                <li>Primary Directions</li>
+                <li>Solar Arc</li>
+                <li>Transit Search engine</li>
+                <li>Angle-at-birth returns</li>
+              </ul>
+            </div>
+
+            <div className="rounded-[1.75rem] border border-white/8 bg-white/[0.03] p-6 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
+              <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Extended objects</div>
+              <div className="mt-3 text-lg font-medium text-[#f4f4f5]">Stackable on the secondary ring.</div>
               <p className="mt-3 text-sm leading-7 text-[#9aa0aa]">
-                Profections (including Continuous Profections), Firdaria, Decennials, Zodiacal Releasing,
-                Circumambulations, Directions, Time Lords. Fixed stars, Arabic Parts, Antiscia, Dodecatemoria
-                as extended objects.
+                Fixed Stars (with aspects and parallels), Arabic Parts, Antiscia, and Dodecatemoria — each
+                available as a secondary ring overlay, switchable with <kbd className="rounded bg-white/10 px-1.5 py-0.5 text-xs text-[#e4e4e7]">Cmd + G</kbd> without leaving the chart.
               </p>
             </div>
+
+            <div className="rounded-[1.75rem] border border-white/8 bg-white/[0.03] p-6 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
+              <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Tables &amp; analysis</div>
+              <div className="mt-3 text-lg font-medium text-[#f4f4f5]">Every number you'd otherwise compute by hand.</div>
+              <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-[#a3a8b3]">
+                <li>Essential dignities</li>
+                <li>Almuten zodiacal &amp; chart</li>
+                <li>Midpoints</li>
+                <li>Rise / set times</li>
+                <li>Planetary speeds</li>
+                <li>Mundane positions</li>
+                <li>Antiscia tables</li>
+                <li>Fixed star parallels</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-6 rounded-[1.75rem] border border-white/8 bg-white/[0.02] p-5 text-sm leading-7 text-[#9aa0aa]">
+            Under the hood: Swiss Ephemeris for positions, all the standard house systems (Placidus, Regiomontanus,
+            Alcabitius, Porphyry, Campanus, Equal, Whole Sign, …), traditional and modern rulerships selectable
+            per workspace, and chart storage compatible with prior Morinus releases.
           </div>
         </section>
 
@@ -247,41 +267,42 @@ export default function App() {
         <section id="download" className="mx-auto max-w-7xl px-6 py-10 lg:px-8 lg:py-16">
           <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
             <div className="rounded-[2rem] border border-white/8 bg-white/[0.03] p-8 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
-              <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Distribution</div>
-              <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[#f4f4f5]">Open source. Sold as a convenience build for Mac.</h3>
+              <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Support the project</div>
+              <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[#f4f4f5]">Morinus is free. The Mac build keeps it going.</h3>
               <p className="mt-4 text-sm leading-7 text-[#9aa0aa]">
-                Morinus is GPL v3. The full source is on GitHub — you can clone it and compile Aries yourself
-                at no cost. The paid Mac build exists for practitioners who would rather not deal with a
-                Python toolchain, Swiss Ephemeris compilation, and app bundling.
+                The source is GPL v3 and always will be — clone it from GitHub and it's yours. There is no
+                paywalled fork, no closed-source version, no feature gate.
               </p>
               <p className="mt-3 text-sm leading-7 text-[#9aa0aa]">
-                Same software, same license. Different threshold.
+                Buying the Mac build funds the work this release takes: the Python 3 port, the new interface,
+                signed and notarized app bundles, bug fixing, and the techniques still being added. If you're
+                using Aries in practice, buying it is the most direct way to keep development moving.
               </p>
             </div>
 
             <div className="grid gap-5 md:grid-cols-2">
               <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,#f4f4f5_0%,#d6d7db_100%)] p-8 text-[#101217] shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
-                <div className="text-sm uppercase tracking-[0.22em] text-black/40">For practitioners</div>
+                <div className="text-sm uppercase tracking-[0.22em] text-black/40">Supporter build</div>
                 <div className="mt-4 text-4xl font-semibold tracking-[-0.05em]">€79</div>
-                <div className="mt-2 text-black/60">Morinus.app for macOS</div>
+                <div className="mt-2 text-black/60">Morinus.app — macOS, signed</div>
                 <div className="mt-6 space-y-3 text-sm text-black/75">
                   <div>Ready-to-run Apple silicon build</div>
-                  <div>Swiss Ephemeris bundled</div>
-                  <div>No Python toolchain required</div>
+                  <div>Swiss Ephemeris bundled, no compiling</div>
                   <div>Update notifications on new releases</div>
+                  <div>Directly funds ongoing development</div>
                 </div>
                 <a href="#" className="mt-8 inline-flex rounded-full bg-[#101217] px-5 py-3 text-sm font-medium text-white">Buy Aries</a>
               </div>
 
               <div className="rounded-[2rem] border border-white/8 bg-[#151922] p-8 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
-                <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">For developers</div>
+                <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Source</div>
                 <div className="mt-4 text-4xl font-semibold tracking-[-0.05em] text-[#f4f4f5]">Free</div>
-                <div className="mt-2 text-[#9aa0aa]">Source on GitHub, GPL v3</div>
+                <div className="mt-2 text-[#9aa0aa]">GitHub, GPL v3</div>
                 <div className="mt-6 space-y-3 text-sm text-[#9aa0aa]">
                   <div>Clone, compile, modify</div>
-                  <div>Track issues and development</div>
-                  <div>Contribute packaging or fixes</div>
                   <div>Linux &amp; Windows build from here</div>
+                  <div>Track issues and development</div>
+                  <div>Contribute fixes and techniques</div>
                 </div>
                 <a href={REPO} className="mt-8 inline-flex rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-medium text-[#f4f4f5] shadow-sm">View source</a>
               </div>
@@ -299,27 +320,35 @@ export default function App() {
             {[
               [
                 'Is this a new program?',
-                'No. It is the 10.x release of Morinus, the same open-source program Robert Nagy originally wrote and several maintainers have continued since. Aries is the codename for this release, similar to how past versions had their own identity.',
+                'No. It is the 10.x release of Morinus, the same open-source program Robert Nagy originally wrote and several maintainers have continued since. Aries is the codename for this release.',
               ],
               [
-                'What is actually new versus Morinus 9.x?',
-                'The Python 2 → 3 migration, a rewritten GUI with sidebar navigation, continuous keyboard-driven time stepping, secondary ring modes for Fixed Stars / Arabic Parts / Antiscia / Dodecatemoria, and lunation-phase navigation on transit charts.',
+                "What's new versus older Morinus releases?",
+                'A rewritten sidebar-based interface, continuous keyboard time stepping across most chart types, Continuous Profections, lunation-phase navigation on transit charts, and switchable secondary ring modes for Fixed Stars, Arabic Parts, Antiscia, and Dodecatemoria.',
+              ],
+              [
+                'Does it do Primary Directions?',
+                'Yes. Primary Directions are a first-class chart type with their own speculum and key options. Solar Arc is also available. Circumambulations are computed separately.',
+              ],
+              [
+                'Which house systems are supported?',
+                'Placidus, Regiomontanus, Alcabitius, Porphyry, Campanus, Equal, Whole Sign, and the other standard options. Rulership schemes (traditional vs. modern) are a per-workspace setting.',
+              ],
+              [
+                'What about fixed stars, Arabic Parts, Antiscia?',
+                'All included. Fixed stars come with their own aspect and parallel tables. Arabic Parts can be computed from any formula. Antiscia and Dodecatemoria can be overlaid on the chart as ring modes.',
               ],
               [
                 'What platforms are supported?',
-                'macOS has a tested application bundle. Linux and Windows should build from source — the code is cross-platform Python + wxPython — but packaged installers for those systems are not ready yet.',
+                'A signed macOS application bundle is the primary release target. The source is cross-platform Python + wxPython, so Linux and Windows builds are expected from source — packaged installers for those systems are not ready yet.',
               ],
               [
-                'Is it really free?',
-                'Yes. Morinus has always been GPL v3. Source is on GitHub, and anyone can inspect, build, modify, or redistribute it under the license.',
+                'What does buying it get me?',
+                'A maintained, signed Mac app with automatic update notifications, without dealing with a Python toolchain. More importantly, it funds the ongoing work — the features list keeps growing because people pay for this build.',
               ],
               [
-                'How do I report a bug or ask for a feature?',
-                'Open an issue on the GitHub repository. Pull requests are also welcome, especially for Windows/Linux packaging, UI refinement, and restoring or extending traditional techniques.',
-              ],
-              [
-                'Why is the design so dark and restrained?',
-                'The program is an instrument. Loud color and decorative imagery would get in the way of reading charts. The visual language is closer to a scientific tool than to lifestyle-branded astrology.',
+                'Where do I file bugs or request techniques?',
+                'On the GitHub repository. Pull requests are welcome, particularly for Linux/Windows packaging and for restoring or extending traditional techniques.',
               ],
             ].map(([q, a]) => (
               <div key={q} className="rounded-[1.75rem] border border-white/8 bg-white/[0.03] p-6 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
