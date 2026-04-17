@@ -1,3 +1,5 @@
+const REPO = "https://github.com/primum-mobile/aries";
+
 export default function App() {
   return (
     <div className="min-h-screen bg-[#0a0c11] text-[#e4e4e7]">
@@ -9,25 +11,27 @@ export default function App() {
             </div>
             <div>
               <div className="text-sm font-medium uppercase tracking-[0.24em] text-[#9aa0aa]">Aries</div>
+              <div className="text-[11px] text-[#6f7782]">Morinus 10.x</div>
             </div>
           </div>
 
           <nav className="hidden items-center gap-8 md:flex">
+            <a href="#lineage" className="text-sm text-[#9aa0aa] transition hover:text-white">Lineage</a>
             <a href="#features" className="text-sm text-[#9aa0aa] transition hover:text-white">Features</a>
-            <a href="#screens" className="text-sm text-[#9aa0aa] transition hover:text-white">Screens</a>
-            <a href="#pricing" className="text-sm text-[#9aa0aa] transition hover:text-white">Pricing</a>
+            <a href="#keyboard" className="text-sm text-[#9aa0aa] transition hover:text-white">Keyboard</a>
+            <a href="#download" className="text-sm text-[#9aa0aa] transition hover:text-white">Download</a>
             <a href="#faq" className="text-sm text-[#9aa0aa] transition hover:text-white">FAQ</a>
           </nav>
 
           <div className="flex items-center gap-3">
             <a
-              href="https://github.com/primum-mobile/aries"
+              href={REPO}
               className="hidden rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm font-medium text-[#d1d5db] shadow-sm transition hover:-translate-y-0.5 hover:bg-white/[0.06] md:inline-flex"
             >
               Source
             </a>
             <a
-              href="#pricing"
+              href="#download"
               className="inline-flex rounded-full bg-white px-4 py-2 text-sm font-medium text-[#101217] transition hover:-translate-y-0.5"
             >
               Download
@@ -38,33 +42,35 @@ export default function App() {
 
       <main>
         <section className="relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.08),transparent_30%),radial-gradient(circle_at_85%_20%,rgba(0,255,170,0.08),transparent_24%),linear-gradient(to_bottom,rgba(255,255,255,0.02),transparent_22%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.08),transparent_30%),radial-gradient(circle_at_85%_20%,rgba(0,255,170,0.06),transparent_24%),linear-gradient(to_bottom,rgba(255,255,255,0.02),transparent_22%)]" />
           <div className="mx-auto grid max-w-7xl gap-14 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-24">
             <div className="relative z-10 max-w-2xl">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-medium tracking-wide text-[#b2b7c0] shadow-sm backdrop-blur">
                 <span className="h-2 w-2 rounded-full bg-[#00ff99]" />
-                Modern astrology software for serious practice
+                Morinus 10.x — release name <span className="text-white">Aries</span>
               </div>
 
-              <h1 className="max-w-3xl text-5xl font-semibold leading-[0.95] tracking-[-0.05em] text-[#f4f4f5] md:text-7xl">
-                Astrology is the
-                <span className="block text-[#888d97]">shell script of the universe.</span>
+              <h1 className="max-w-3xl text-5xl font-semibold leading-[1.02] tracking-[-0.04em] text-[#f4f4f5] md:text-6xl">
+                Traditional astrology software,
+                <span className="block text-[#888d97]">rebuilt on Python 3.</span>
               </h1>
 
-              <p className="mt-6 max-w-xl text-lg leading-8 text-[#a3a8b3] md:text-xl">
-                Aries is a fast, keyboard-driven astrology app for practitioners who want precision,
-                beautiful charts, and an interface that feels modern instead of inherited.
+              <p className="mt-6 max-w-xl text-lg leading-8 text-[#a3a8b3]">
+                Aries is the 10.x release of Morinus — the open-source astrology program first written by
+                Robert Nagy and continued by a chain of contributors since. This version migrates the codebase
+                from Python 2 to Python 3, modernizes the GUI, and adds a keyboard-driven interaction model
+                for exploratory work.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <a
-                  href="#pricing"
+                  href="#download"
                   className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-medium text-[#101217] transition hover:-translate-y-0.5"
                 >
-                  Get the Mac build
+                  Download for macOS
                 </a>
                 <a
-                  href="https://github.com/primum-mobile/aries"
+                  href={REPO}
                   className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 text-sm font-medium text-[#d4d4d8] shadow-sm transition hover:-translate-y-0.5 hover:bg-white/[0.06]"
                 >
                   Build from source
@@ -73,10 +79,10 @@ export default function App() {
 
               <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
                 {[
-                  ['Synastry', 'Drag charts together'],
-                  ['Directions', 'Morinus power preserved'],
-                  ['Returns', 'Exact stepping workflow'],
-                  ['Mac-first', 'Fluid, minimal UI'],
+                  ['Python 3', 'Migrated from Py2'],
+                  ['Swiss Ephemeris', 'High-precision engine'],
+                  ['Keyboard-driven', 'Time stepping with arrow keys'],
+                  ['GPL v3', 'Free and open source'],
                 ].map(([title, text]) => (
                   <div key={title} className="rounded-2xl border border-white/8 bg-white/[0.03] p-4 shadow-[0_12px_30px_rgba(0,0,0,0.18)] backdrop-blur">
                     <div className="text-sm font-medium text-[#f4f4f5]">{title}</div>
@@ -90,7 +96,7 @@ export default function App() {
               <div className="rounded-[2rem] border border-white/8 bg-[#14181f] p-3 shadow-[0_30px_100px_rgba(0,0,0,0.42)] backdrop-blur-xl">
                 <img
                   src="/screens/hero-radix.png"
-                  alt="Aries — ARPANET radix chart"
+                  alt="Aries — radix chart with sidebar navigation"
                   className="block w-full rounded-[1.6rem] border border-white/8"
                 />
               </div>
@@ -98,22 +104,31 @@ export default function App() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-6 py-4 lg:px-8 lg:py-10">
+        <section id="lineage" className="mx-auto max-w-7xl px-6 py-4 lg:px-8 lg:py-10">
           <div className="rounded-[2rem] border border-[#b88b4a]/20 bg-[linear-gradient(180deg,rgba(184,139,74,0.12),rgba(184,139,74,0.04))] p-6 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
             <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
               <div className="overflow-hidden rounded-[1.5rem] border border-[#b88b4a]/25 bg-black/20">
                 <img
                   src="/screens/observatory.jpg"
-                  alt="Ottoman observatory — historical astronomical instruments"
+                  alt="Astronomers at the Istanbul observatory of Taqi al-Din, 16th century"
                   className="block h-full w-full object-cover"
                 />
               </div>
               <div>
-                <div className="text-sm uppercase tracking-[0.22em] text-[#c5a36d]">Inheritance</div>
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[#f4f4f5] md:text-4xl">Built with modern software taste and the memory of older astronomical craft.</h2>
+                <div className="text-sm uppercase tracking-[0.22em] text-[#c5a36d]">Lineage</div>
+                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[#f4f4f5] md:text-4xl">A continuation, not a rewrite from scratch.</h2>
                 <p className="mt-4 text-sm leading-8 text-[#b7bcc6] md:text-base">
-                  Aries does not aestheticize astrology as vague mysticism. The visual language is darker, quieter, more technical — closer to an instrument panel than a lifestyle brand — while still carrying a sense of historical depth.
+                  Morinus has passed through several hands since Robert Nagy wrote the first versions.
+                  Aries is the 10.x release in that sequence — modernizing the software without discarding
+                  the techniques and calculations its earlier authors built up.
                 </p>
+                <ul className="mt-5 space-y-2 text-sm text-[#b7bcc6]">
+                  <li><span className="font-medium text-[#f4f4f5]">Robert Nagy</span> — original author, up to 6.x</li>
+                  <li><span className="font-medium text-[#f4f4f5]">Roberto Luporini</span> — 7.x (2013)</li>
+                  <li><span className="font-medium text-[#f4f4f5]">Elías D. Molins</span> — 8.x (2013)</li>
+                  <li><span className="font-medium text-[#f4f4f5]">Shin Ji-Hyeon / James Ren</span> — 9.x (2025)</li>
+                  <li><span className="font-medium text-[#f4f4f5]">Max Lange</span> — 10.x, <em>Aries</em> (2026–)</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -121,27 +136,27 @@ export default function App() {
 
         <section id="features" className="mx-auto max-w-7xl px-6 py-10 lg:px-8 lg:py-16">
           <div className="mb-8 max-w-2xl">
-            <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Why Aries</div>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[#f4f4f5] md:text-5xl">Built for working astrologers, not software archaeologists.</h2>
+            <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">What's in this release</div>
+            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[#f4f4f5] md:text-5xl">Python 3 base, modern GUI, same astrology.</h2>
           </div>
 
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {[
               {
-                title: 'Fast by design',
-                body: 'A fluid sidebar workflow, keyboard-first navigation, and time-stepping that feels immediate instead of bureaucratic.',
+                title: 'Python 3 migration',
+                body: 'The full codebase has been moved off Python 2. Calculation correctness and technique coverage are preserved from previous versions.',
               },
               {
-                title: 'Morinus depth, modern shell',
-                body: 'Primary directions, circumambulations, returns, synastry, composites, and advanced forecasting techniques remain intact.',
+                title: 'Sidebar workspace',
+                body: 'Navigation is unified into a single sidebar across chart types, tables, and time-lord views. No more nested menus to hunt through.',
               },
               {
-                title: 'Charts with restraint',
-                body: 'A scientific visual language, subtle contrast, dignity color systems, and layouts designed to stay readable under pressure.',
+                title: 'Keyboard time stepping',
+                body: 'Arrow keys step time on almost every chart. Modifier keys change the step size. Shift + ↑/↓ jumps through moon phases on transit charts.',
               },
               {
-                title: 'Open source core',
-                body: 'Buy the ready-to-use Mac app, or compile it yourself from source if that is your preferred path.',
+                title: 'Secondary ring modes',
+                body: 'Cmd + G cycles the secondary ring between Dodecatemoria, Arabic Parts, Fixed Stars, and Antiscia without leaving the chart.',
               },
             ].map((item) => (
               <div key={item.title} className="rounded-[1.75rem] border border-white/8 bg-white/[0.03] p-6 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
@@ -150,22 +165,42 @@ export default function App() {
               </div>
             ))}
           </div>
+
+          <div className="mt-10 grid gap-5 md:grid-cols-2">
+            <div className="rounded-[1.75rem] border border-white/8 bg-white/[0.03] p-6 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
+              <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Charts</div>
+              <div className="mt-3 text-lg font-medium text-[#f4f4f5]">Natal, transits, revolutions, synastry, mundane.</div>
+              <p className="mt-3 text-sm leading-7 text-[#9aa0aa]">
+                Natal and progressed charts, Solar and Lunar Revolutions, Synastry, and Mundane charts.
+                Transit Search is available as a separate engine (shortcut <kbd className="rounded bg-white/10 px-1.5 py-0.5 text-xs text-[#e4e4e7]">S</kbd>).
+              </p>
+            </div>
+            <div className="rounded-[1.75rem] border border-white/8 bg-white/[0.03] p-6 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
+              <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Techniques</div>
+              <div className="mt-3 text-lg font-medium text-[#f4f4f5]">The traditional set, intact.</div>
+              <p className="mt-3 text-sm leading-7 text-[#9aa0aa]">
+                Profections (including Continuous Profections), Firdaria, Decennials, Zodiacal Releasing,
+                Circumambulations, Directions, Time Lords. Fixed stars, Arabic Parts, Antiscia, Dodecatemoria
+                as extended objects.
+              </p>
+            </div>
+          </div>
         </section>
 
-        <section id="screens" className="mx-auto max-w-7xl px-6 py-6 lg:px-8 lg:py-16">
+        <section id="keyboard" className="mx-auto max-w-7xl px-6 py-6 lg:px-8 lg:py-16">
           <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
             <div className="rounded-[2rem] border border-white/8 bg-[#151922] p-5 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
               <div className="mb-4 flex items-center justify-between">
                 <div>
                   <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Screen</div>
-                  <div className="mt-1 text-2xl font-medium text-[#f4f4f5]">Chart workspace</div>
+                  <div className="mt-1 text-2xl font-medium text-[#f4f4f5]">Classic Morinus chart</div>
                 </div>
-                <div className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-[#b7bcc6] shadow-sm">Designed for focus</div>
+                <div className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-[#b7bcc6] shadow-sm">Placidus houses</div>
               </div>
               <div className="overflow-hidden rounded-[1.5rem] border border-white/8 bg-[#10141a]">
                 <img
                   src="/screens/classic-radix.jpg"
-                  alt="Aries — classic Morinus radix with Placidus houses"
+                  alt="Aries — Morinus chart view with Placidus houses and dashed aspect lines"
                   className="block w-full"
                 />
               </div>
@@ -173,69 +208,89 @@ export default function App() {
 
             <div className="grid gap-5">
               <div className="rounded-[2rem] border border-white/8 bg-white/[0.03] p-6 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
-                <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Workflow</div>
-                <div className="mt-2 text-2xl font-medium text-[#f4f4f5]">Everything important is close at hand.</div>
-                <div className="mt-6 space-y-4">
+                <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Keyboard</div>
+                <div className="mt-2 text-2xl font-medium text-[#f4f4f5]">Time is a first-class input.</div>
+                <p className="mt-3 text-sm leading-7 text-[#9aa0aa]">
+                  A lot of traditional astrology involves asking "what did this look like slightly earlier or
+                  later?" Aries treats that as a keyboard gesture rather than a dialog.
+                </p>
+                <div className="mt-5 space-y-3 text-sm">
                   {[
-                    'Drag one chart over another to create synastry.',
-                    'Convert comparisons into composite or Davison in one move.',
-                    'Step time with the keyboard and jump exact returns quickly.',
-                    'Open transits or derived charts as their own working objects.',
-                  ].map((line) => (
-                    <div key={line} className="flex gap-3">
-                      <div className="mt-1 h-2.5 w-2.5 rounded-full bg-[#00ff99]" />
-                      <p className="text-sm leading-7 text-[#a3a8b3]">{line}</p>
+                    ['←  →', 'Step time back / forward'],
+                    ['Shift + ← →', 'Alternate step size'],
+                    ['Shift + ↑ ↓', 'Jump moon phases (transits)'],
+                    ['R', 'Solar Revolution'],
+                    ['L', 'Lunar Revolution'],
+                    ['S', 'Transit Search'],
+                    ['Cmd + G', 'Cycle secondary ring mode'],
+                  ].map(([keys, text]) => (
+                    <div key={keys} className="flex items-center justify-between gap-4 rounded-xl border border-white/5 bg-white/[0.02] px-3 py-2">
+                      <kbd className="font-mono text-xs tracking-wide text-[#e4e4e7]">{keys}</kbd>
+                      <span className="text-right text-[#9aa0aa]">{text}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               <div className="rounded-[2rem] border border-white/8 bg-[linear-gradient(180deg,#0f1319_0%,#0a0d12_100%)] p-6 text-white shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
-                <div className="text-sm uppercase tracking-[0.22em] text-white/40">Positioning</div>
-                <div className="mt-2 text-2xl font-medium">A traditionalist power tool with modern taste.</div>
-                <p className="mt-4 text-sm leading-7 text-white/70">
-                  Aries is for astrologers who care about forecasting depth, technical credibility, and software that does not look like a relic.
+                <div className="text-sm uppercase tracking-[0.22em] text-white/40">UX model</div>
+                <div className="mt-2 text-lg font-medium">Charts are objects you move through, not static prints.</div>
+                <p className="mt-3 text-sm leading-7 text-white/70">
+                  The intended workflow is continuous: step forward, inspect a transition, drop into a Solar
+                  Revolution, come back, check a Continuous Profection. Everything stays on the keyboard.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="pricing" className="mx-auto max-w-7xl px-6 py-10 lg:px-8 lg:py-16">
+        <section id="download" className="mx-auto max-w-7xl px-6 py-10 lg:px-8 lg:py-16">
           <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
             <div className="rounded-[2rem] border border-white/8 bg-white/[0.03] p-8 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
-              <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Distribution</div>
-              <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[#f4f4f5]">Open source, but not obligated to make your life difficult.</h3>
+              <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Status</div>
+              <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[#f4f4f5]">Free and open source, under active development.</h3>
               <p className="mt-4 text-sm leading-7 text-[#9aa0aa]">
-                Buy the finished build for convenience. Or compile Aries yourself from source. Same core, different threshold.
+                Aries is licensed under GPL v3. A macOS <code className="rounded bg-white/10 px-1.5 py-0.5 text-xs text-[#e4e4e7]">.app</code> bundle has been tested.
+                Linux and Windows should build from source; packaged installers are not yet available.
+              </p>
+              <p className="mt-3 text-sm leading-7 text-[#9aa0aa]">
+                If you want to help with packaging, UI refinement, or testing, contributions are welcome on GitHub.
               </p>
             </div>
 
             <div className="grid gap-5 md:grid-cols-2">
-              <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,#f4f4f5_0%,#d6d7db_100%)] p-8 text-[#101217] shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
-                <div className="text-sm uppercase tracking-[0.22em] text-black/40">For practitioners</div>
-                <div className="mt-4 text-4xl font-semibold tracking-[-0.05em]">€79</div>
-                <div className="mt-2 text-black/60">Mac app build</div>
-                <div className="mt-6 space-y-3 text-sm text-black/75">
-                  <div>Ready-to-use desktop build</div>
-                  <div>Fast updates</div>
-                  <div>Designed distribution experience</div>
-                  <div>No compiling required</div>
-                </div>
-                <a href="#" className="mt-8 inline-flex rounded-full bg-[#101217] px-5 py-3 text-sm font-medium text-white">Buy Aries</a>
+              <div className="rounded-[2rem] border border-white/8 bg-[#151922] p-8 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
+                <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">macOS</div>
+                <div className="mt-4 text-2xl font-medium text-[#f4f4f5]">Morinus.app</div>
+                <div className="mt-2 text-sm text-[#9aa0aa]">Apple silicon, tested</div>
+                <ul className="mt-6 space-y-2 text-sm text-[#9aa0aa]">
+                  <li>Drag to /Applications</li>
+                  <li>Swiss Ephemeris bundled</li>
+                  <li>No Python install needed</li>
+                </ul>
+                <a
+                  href={`${REPO}/releases`}
+                  className="mt-8 inline-flex rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-medium text-[#f4f4f5] shadow-sm"
+                >
+                  Releases
+                </a>
               </div>
 
               <div className="rounded-[2rem] border border-white/8 bg-[#151922] p-8 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
-                <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">For developers</div>
-                <div className="mt-4 text-4xl font-semibold tracking-[-0.05em] text-[#f4f4f5]">Free</div>
-                <div className="mt-2 text-[#9aa0aa]">Source on GitHub</div>
-                <div className="mt-6 space-y-3 text-sm text-[#9aa0aa]">
-                  <div>Compile it yourself</div>
-                  <div>Inspect the code</div>
-                  <div>Track issues and development</div>
-                  <div>Contribute if useful</div>
-                </div>
-                <a href="https://github.com/primum-mobile/aries" className="mt-8 inline-flex rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-medium text-[#f4f4f5] shadow-sm">View source</a>
+                <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Source</div>
+                <div className="mt-4 text-2xl font-medium text-[#f4f4f5]">Build it yourself</div>
+                <div className="mt-2 text-sm text-[#9aa0aa]">Python 3.10+, wxPython</div>
+                <ul className="mt-6 space-y-2 text-sm text-[#9aa0aa]">
+                  <li>Clone the repo</li>
+                  <li>Build the Swiss Ephemeris extension</li>
+                  <li><code className="rounded bg-white/10 px-1.5 py-0.5 text-xs text-[#e4e4e7]">python3 morinus.py</code></li>
+                </ul>
+                <a
+                  href={REPO}
+                  className="mt-8 inline-flex rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-medium text-[#f4f4f5] shadow-sm"
+                >
+                  View on GitHub
+                </a>
               </div>
             </div>
           </div>
@@ -249,10 +304,30 @@ export default function App() {
 
           <div className="grid gap-4 md:grid-cols-2">
             {[
-              ['Is Aries open source?', 'Yes. The source is public. The paid build is a convenience distribution for people who want the finished app without compiling.'],
-              ['Who is it for?', 'Practicing astrologers, especially users who care about traditional techniques, forecasting depth, and a more refined interface.'],
-              ['Why not just use the repo?', 'Most users do not want a code repository as their storefront. The site is for buying and understanding the app. The repo is for developers.'],
-              ['What platforms are supported?', 'This page is currently positioned around the Mac build. You can adjust platform language later once releases expand.'],
+              [
+                'Is this a new program?',
+                'No. It is the 10.x release of Morinus, the same open-source program Robert Nagy originally wrote and several maintainers have continued since. Aries is the codename for this release, similar to how past versions had their own identity.',
+              ],
+              [
+                'What is actually new versus Morinus 9.x?',
+                'The Python 2 → 3 migration, a rewritten GUI with sidebar navigation, continuous keyboard-driven time stepping, secondary ring modes for Fixed Stars / Arabic Parts / Antiscia / Dodecatemoria, and lunation-phase navigation on transit charts.',
+              ],
+              [
+                'What platforms are supported?',
+                'macOS has a tested application bundle. Linux and Windows should build from source — the code is cross-platform Python + wxPython — but packaged installers for those systems are not ready yet.',
+              ],
+              [
+                'Is it really free?',
+                'Yes. Morinus has always been GPL v3. Source is on GitHub, and anyone can inspect, build, modify, or redistribute it under the license.',
+              ],
+              [
+                'How do I report a bug or ask for a feature?',
+                'Open an issue on the GitHub repository. Pull requests are also welcome, especially for Windows/Linux packaging, UI refinement, and restoring or extending traditional techniques.',
+              ],
+              [
+                'Why is the design so dark and restrained?',
+                'The program is an instrument. Loud color and decorative imagery would get in the way of reading charts. The visual language is closer to a scientific tool than to lifestyle-branded astrology.',
+              ],
             ].map(([q, a]) => (
               <div key={q} className="rounded-[1.75rem] border border-white/8 bg-white/[0.03] p-6 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
                 <div className="text-lg font-medium text-[#f4f4f5]">{q}</div>
@@ -265,11 +340,14 @@ export default function App() {
 
       <footer className="border-t border-white/6">
         <div className="mx-auto flex max-w-7xl flex-col gap-5 px-6 py-8 text-sm text-[#8f95a0] lg:flex-row lg:items-center lg:justify-between lg:px-8">
-          <div>Aries — modern astrology software for serious practice.</div>
+          <div>
+            Morinus — GPL v3. Continued by Max Lange (10.x, <em>Aries</em>).
+          </div>
           <div className="flex flex-wrap items-center gap-5">
             <a href="#features" className="hover:text-white">Features</a>
-            <a href="#pricing" className="hover:text-white">Download</a>
-            <a href="https://github.com/primum-mobile/aries" className="hover:text-white">Source</a>
+            <a href="#keyboard" className="hover:text-white">Keyboard</a>
+            <a href="#download" className="hover:text-white">Download</a>
+            <a href={REPO} className="hover:text-white">Source</a>
           </div>
         </div>
       </footer>
