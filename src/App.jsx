@@ -247,50 +247,43 @@ export default function App() {
         <section id="download" className="mx-auto max-w-7xl px-6 py-10 lg:px-8 lg:py-16">
           <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
             <div className="rounded-[2rem] border border-white/8 bg-white/[0.03] p-8 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
-              <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Status</div>
-              <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[#f4f4f5]">Free and open source, under active development.</h3>
+              <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Distribution</div>
+              <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[#f4f4f5]">Open source. Sold as a convenience build for Mac.</h3>
               <p className="mt-4 text-sm leading-7 text-[#9aa0aa]">
-                Aries is licensed under GPL v3. A macOS <code className="rounded bg-white/10 px-1.5 py-0.5 text-xs text-[#e4e4e7]">.app</code> bundle has been tested.
-                Linux and Windows should build from source; packaged installers are not yet available.
+                Morinus is GPL v3. The full source is on GitHub — you can clone it and compile Aries yourself
+                at no cost. The paid Mac build exists for practitioners who would rather not deal with a
+                Python toolchain, Swiss Ephemeris compilation, and app bundling.
               </p>
               <p className="mt-3 text-sm leading-7 text-[#9aa0aa]">
-                If you want to help with packaging, UI refinement, or testing, contributions are welcome on GitHub.
+                Same software, same license. Different threshold.
               </p>
             </div>
 
             <div className="grid gap-5 md:grid-cols-2">
-              <div className="rounded-[2rem] border border-white/8 bg-[#151922] p-8 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
-                <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">macOS</div>
-                <div className="mt-4 text-2xl font-medium text-[#f4f4f5]">Morinus.app</div>
-                <div className="mt-2 text-sm text-[#9aa0aa]">Apple silicon, tested</div>
-                <ul className="mt-6 space-y-2 text-sm text-[#9aa0aa]">
-                  <li>Drag to /Applications</li>
-                  <li>Swiss Ephemeris bundled</li>
-                  <li>No Python install needed</li>
-                </ul>
-                <a
-                  href={`${REPO}/releases`}
-                  className="mt-8 inline-flex rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-medium text-[#f4f4f5] shadow-sm"
-                >
-                  Releases
-                </a>
+              <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,#f4f4f5_0%,#d6d7db_100%)] p-8 text-[#101217] shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
+                <div className="text-sm uppercase tracking-[0.22em] text-black/40">For practitioners</div>
+                <div className="mt-4 text-4xl font-semibold tracking-[-0.05em]">€79</div>
+                <div className="mt-2 text-black/60">Morinus.app for macOS</div>
+                <div className="mt-6 space-y-3 text-sm text-black/75">
+                  <div>Ready-to-run Apple silicon build</div>
+                  <div>Swiss Ephemeris bundled</div>
+                  <div>No Python toolchain required</div>
+                  <div>Update notifications on new releases</div>
+                </div>
+                <a href="#" className="mt-8 inline-flex rounded-full bg-[#101217] px-5 py-3 text-sm font-medium text-white">Buy Aries</a>
               </div>
 
               <div className="rounded-[2rem] border border-white/8 bg-[#151922] p-8 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
-                <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">Source</div>
-                <div className="mt-4 text-2xl font-medium text-[#f4f4f5]">Build it yourself</div>
-                <div className="mt-2 text-sm text-[#9aa0aa]">Python 3.10+, wxPython</div>
-                <ul className="mt-6 space-y-2 text-sm text-[#9aa0aa]">
-                  <li>Clone the repo</li>
-                  <li>Build the Swiss Ephemeris extension</li>
-                  <li><code className="rounded bg-white/10 px-1.5 py-0.5 text-xs text-[#e4e4e7]">python3 morinus.py</code></li>
-                </ul>
-                <a
-                  href={REPO}
-                  className="mt-8 inline-flex rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-medium text-[#f4f4f5] shadow-sm"
-                >
-                  View on GitHub
-                </a>
+                <div className="text-sm uppercase tracking-[0.22em] text-[#6f7782]">For developers</div>
+                <div className="mt-4 text-4xl font-semibold tracking-[-0.05em] text-[#f4f4f5]">Free</div>
+                <div className="mt-2 text-[#9aa0aa]">Source on GitHub, GPL v3</div>
+                <div className="mt-6 space-y-3 text-sm text-[#9aa0aa]">
+                  <div>Clone, compile, modify</div>
+                  <div>Track issues and development</div>
+                  <div>Contribute packaging or fixes</div>
+                  <div>Linux &amp; Windows build from here</div>
+                </div>
+                <a href={REPO} className="mt-8 inline-flex rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-medium text-[#f4f4f5] shadow-sm">View source</a>
               </div>
             </div>
           </div>
