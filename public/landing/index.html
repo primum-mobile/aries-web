@@ -3,45 +3,48 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Aries — a traditional astrology application</title>
-<meta name="description" content="Aries is a traditional astrology application built on the primary sources. Request access to the private beta." />
+<title>Aries — Astrology Software</title>
+<meta name="description" content="Aries — fast and easy-to-use astrology software. Request access to the private beta." />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-<meta property="og:title" content="Aries — a traditional astrology application" />
-<meta property="og:description" content="Built on the primary sources. Currently in private beta — request access." />
+<meta property="og:title" content="Aries — Astrology Software" />
+<meta property="og:description" content="Fast and Easy-to-use Astrology Software. Private beta — request access." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://aries.sh/landing/" />
 
 <style>
+  /* FreeSans — same family the Aries desktop app ships */
+  @font-face {
+    font-family: 'FreeSans';
+    src: url('fonts/FreeSans.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'FreeSans';
+    src: url('fonts/FreeSansBold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
   :root {
     --bg-app:        #0a0c11;
-    --bg-panel:      #151922;
-    --bg-panel-soft: #14181f;
-    --bg-elevated:   #1c2128;
-    --bg-topbar:     #0b0e13;
+    --bg-pill:       rgba(0, 0, 0, 0.42);
+    --bg-pill-focus: rgba(0, 0, 0, 0.55);
 
     --text-primary:   #f4f4f5;
     --text-secondary: #b2b7c0;
     --text-muted:     #8f95a0;
     --label-muted:    #6f7782;
 
-    --accent-green: #00ff99;
     --accent-gold:  #c5a36d;
-    --accent-soft:  rgba(197, 163, 109, 0.5);
 
-    --border-soft:   rgba(255, 255, 255, 0.08);
-    --border-strong: rgba(255, 255, 255, 0.14);
+    --border-pill:        rgba(255, 255, 255, 0.10);
+    --border-pill-focus:  rgba(255, 255, 255, 0.22);
 
-    --radius-panel:  2rem;
-    --radius-window: 1.6rem;
-    --radius-card:   1.25rem;
-    --radius-pill:   9999px;
-
-    --shadow-hero:  0 30px 100px rgba(0, 0, 0, 0.42);
-    --shadow-panel: 0 12px 28px rgba(0, 0, 0, 0.18);
-    --shadow-soft:  0 10px 30px rgba(0, 0, 0, 0.25);
-
-    --stack-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --stack-sans: 'FreeSans', 'Nimbus Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -54,246 +57,184 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    overflow-x: hidden;
+    overflow: hidden;
   }
 
-  /* ambient backdrop — radial highlights matching aries.sh */
+  /* Very subtle ambient glow — keeps the page from feeling flat */
   body::before {
     content: "";
     position: fixed; inset: 0;
     background:
-      radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.06), transparent 30%),
-      radial-gradient(circle at 85% 22%, rgba(0, 255, 170, 0.05), transparent 28%),
-      radial-gradient(circle at 50% 95%, rgba(197, 163, 109, 0.06), transparent 36%);
+      radial-gradient(ellipse 80% 60% at 50% 35%, rgba(255, 255, 255, 0.035), transparent 70%),
+      radial-gradient(ellipse 60% 50% at 50% 90%, rgba(197, 163, 109, 0.035), transparent 70%);
     pointer-events: none;
     z-index: 0;
   }
 
+  /* ─── frame ─────────────────────────────────────────── */
   .frame {
     position: relative;
     min-height: 100vh;
     min-height: 100svh;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    padding: 28px clamp(20px, 4vw, 56px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 24px 28px;
     z-index: 1;
-    gap: 24px;
   }
 
-  /* ─── top bar ─────────────────────────────────────────── */
-  header {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 24px;
-  }
-
-  .brand {
-    display: flex; align-items: center; gap: 14px;
-  }
-  .brand .badge {
-    width: 38px; height: 38px;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: var(--radius-card);
-    border: 1px solid var(--border-strong);
-    background: rgba(255, 255, 255, 0.04);
-    box-shadow: var(--shadow-soft);
-  }
-  .brand .badge svg { width: 18px; height: 18px; color: var(--text-primary); }
-  .brand .meta { display: flex; flex-direction: column; }
-  .brand .meta .name {
-    font-size: 11px;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-  }
-  .brand .meta .sub {
-    font-size: 11px;
-    color: var(--label-muted);
-    margin-top: 2px;
-  }
-
-  .header-right {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--label-muted);
-  }
-  .pill {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 6px 12px;
-    border: 1px solid var(--border-strong);
-    border-radius: var(--radius-pill);
-    background: rgba(255, 255, 255, 0.04);
-    color: var(--text-secondary);
-    box-shadow: var(--shadow-soft);
-  }
-  .pill .dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--accent-green);
-    box-shadow: 0 0 8px rgba(0, 255, 170, 0.55);
-  }
-
-  /* ─── center stage ────────────────────────────────────── */
+  /* ─── hero ──────────────────────────────────────────── */
   main {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 4vh 0;
+    width: 100%;
+    max-width: 520px;
+    margin: auto;
   }
 
-  .glyph {
-    width: 64px; height: 64px;
-    color: var(--text-primary);
-    margin-bottom: 36px;
-    opacity: 0;
-    animation: rise 900ms cubic-bezier(.2,.7,.2,1) 80ms forwards;
-  }
-
+  /* The wordmark mirrors the app's splash: leftmost "A" is sheared
+     19° to the right (false italic), the rest is upright. */
   .wordmark {
-    font-weight: 500;
-    font-size: clamp(72px, 13vw, 160px);
-    letter-spacing: -0.04em;
-    line-height: 0.95;
+    display: inline-flex;
+    align-items: baseline;
+    font-weight: 400;
+    font-size: clamp(64px, 11vw, 124px);
+    line-height: 1;
+    letter-spacing: -0.005em;
     color: var(--text-primary);
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     opacity: 0;
-    animation: rise 900ms cubic-bezier(.2,.7,.2,1) 180ms forwards;
+    animation: rise 700ms cubic-bezier(.2,.7,.2,1) 120ms forwards;
   }
-
-  .rule {
-    width: 56px; height: 1px;
-    background: var(--accent-gold);
-    margin: 0 auto 24px;
-    transform: scaleX(0);
-    transform-origin: center;
-    animation: ruleIn 700ms cubic-bezier(.2,.7,.2,1) 420ms forwards;
+  .wordmark .a {
+    display: inline-block;
+    transform: skewX(-19deg);
+    transform-origin: bottom left;
+    margin-right: 0.04em;
   }
 
   .tagline {
     font-weight: 400;
-    font-size: clamp(15px, 1.7vw, 18px);
-    line-height: 1.6;
+    font-size: clamp(14px, 1.6vw, 17px);
+    line-height: 1.55;
     color: var(--text-secondary);
-    max-width: 42ch;
-    margin: 0 auto 44px;
+    margin-bottom: 40px;
     opacity: 0;
-    animation: rise 900ms cubic-bezier(.2,.7,.2,1) 360ms forwards;
+    animation: rise 700ms cubic-bezier(.2,.7,.2,1) 260ms forwards;
   }
 
-  /* ─── form panel ──────────────────────────────────────── */
-  .form-panel {
+  /* ─── floating pill input (mirrors spotlight_ambient.py) ── */
+  .pill {
+    position: relative;
     width: 100%;
-    max-width: 520px;
-    border-radius: var(--radius-panel);
-    border: 1px solid var(--border-soft);
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    box-shadow: var(--shadow-hero);
-    padding: clamp(24px, 4vw, 32px);
-    opacity: 0;
-    animation: rise 900ms cubic-bezier(.2,.7,.2,1) 540ms forwards;
-  }
-
-  .form-eyebrow {
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    margin-bottom: 18px;
-    font-size: 10px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--label-muted);
-  }
-  .form-eyebrow .dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: var(--accent-green);
-    box-shadow: 0 0 6px rgba(0, 255, 170, 0.6);
-  }
-
-  .field {
+    max-width: 480px;
+    height: 60px;
     display: flex;
-    align-items: stretch;
-    border: 1px solid var(--border-strong);
-    background: rgba(0, 0, 0, 0.25);
-    border-radius: var(--radius-pill);
-    padding: 5px;
-    transition: border-color 200ms ease, background-color 200ms ease;
+    align-items: center;
+    border: 1px solid var(--border-pill);
+    background: var(--bg-pill);
+    border-radius: 9999px;
+    padding: 0 8px 0 22px;
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    box-shadow:
+      0 18px 50px rgba(0, 0, 0, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    transition: border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+    opacity: 0;
+    animation: rise 700ms cubic-bezier(.2,.7,.2,1) 400ms forwards;
   }
-  .field:focus-within {
-    border-color: rgba(197, 163, 109, 0.5);
-    background: rgba(0, 0, 0, 0.35);
+  .pill:focus-within {
+    border-color: var(--border-pill-focus);
+    background: var(--bg-pill-focus);
   }
 
-  .field input {
+  .pill .icon {
+    flex: 0 0 auto;
+    width: 16px; height: 16px;
+    color: var(--label-muted);
+    margin-right: 14px;
+  }
+
+  .pill input {
     flex: 1;
+    min-width: 0;
+    height: 100%;
     font-family: var(--stack-sans);
-    font-size: 14px;
+    font-size: 17px;
     letter-spacing: 0.005em;
-    padding: 12px 18px;
     border: 0; outline: 0;
     background: transparent;
     color: var(--text-primary);
-    min-width: 0;
+    padding: 0;
   }
-  .field input::placeholder { color: var(--label-muted); }
+  .pill input::placeholder { color: var(--label-muted); }
 
-  .field button {
-    font-family: var(--stack-sans);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    padding: 0 22px;
+  .pill button {
+    flex: 0 0 auto;
+    width: 44px; height: 44px;
+    margin-left: 8px;
     border: 0;
-    border-radius: var(--radius-pill);
-    background: var(--text-primary);
-    color: #101217;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-secondary);
     cursor: pointer;
-    display: flex; align-items: center; gap: 10px;
-    transition: transform 200ms cubic-bezier(.2,.7,.2,1), background 200ms ease, color 200ms ease;
-    white-space: nowrap;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 200ms ease, color 200ms ease, transform 220ms cubic-bezier(.2,.7,.2,1);
   }
-  .field button:hover {
-    background: #ffffff;
-    transform: translateY(-1px);
+  .pill button:hover {
+    background: var(--text-primary);
+    color: #0a0c11;
   }
-  .field button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-  .field button .arrow {
-    width: 14px; height: 10px;
-    transition: transform 220ms cubic-bezier(.2,.7,.2,1);
-  }
-  .field button:hover .arrow { transform: translateX(3px); }
+  .pill button:disabled { opacity: 0.45; cursor: not-allowed; }
+  .pill button .arrow { width: 14px; height: 10px; transition: transform 220ms cubic-bezier(.2,.7,.2,1); }
+  .pill button:hover .arrow { transform: translateX(2px); }
 
-  .hint {
-    margin-top: 16px;
+  /* ─── caption under the pill ───────────────────────── */
+  .caption {
+    margin-top: 18px;
     font-size: 11px;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--label-muted);
     text-align: center;
+    opacity: 0;
+    animation: rise 700ms cubic-bezier(.2,.7,.2,1) 520ms forwards;
   }
-  .hint .sep { margin: 0 8px; color: var(--border-strong); }
+  .caption .dot {
+    display: inline-block;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent-gold);
+    box-shadow: 0 0 8px rgba(197, 163, 109, 0.55);
+    vertical-align: middle;
+    margin-right: 8px;
+    transform: translateY(-1px);
+  }
 
-  /* confirmation state */
+  /* ─── confirmation state ───────────────────────────── */
   .confirm {
     display: none;
     text-align: center;
-    padding: 14px 0 6px;
+    padding: 6px 0;
+    width: 100%;
+    max-width: 480px;
   }
   .confirm .check {
-    width: 30px; height: 30px;
-    margin: 0 auto 18px;
+    width: 28px; height: 28px;
+    margin: 0 auto 14px;
     color: var(--accent-gold);
   }
   .confirm h3 {
-    font-weight: 500;
-    font-size: 22px;
-    letter-spacing: -0.01em;
+    font-weight: 400;
+    font-size: 18px;
     color: var(--text-primary);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    letter-spacing: 0.005em;
   }
   .confirm p {
     font-size: 11px;
@@ -301,153 +242,126 @@
     text-transform: uppercase;
     color: var(--label-muted);
   }
-  .is-sent .form { display: none; }
-  .is-sent .confirm { display: block; animation: rise 600ms cubic-bezier(.2,.7,.2,1) forwards; }
+  .is-sent .pill,
+  .is-sent .caption { display: none; }
+  .is-sent .confirm { display: block; animation: rise 500ms cubic-bezier(.2,.7,.2,1) forwards; }
 
-  /* ─── footer ──────────────────────────────────────────── */
+  /* ─── footer (tiny credit, almost invisible) ───────── */
   footer {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 16px;
-    font-size: 11px;
-    letter-spacing: 0.18em;
+    position: fixed;
+    bottom: 18px;
+    left: 0; right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    font-size: 10px;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--label-muted);
-    padding-top: 16px;
-    border-top: 1px solid var(--border-soft);
+    pointer-events: none;
+    z-index: 1;
   }
-  footer a {
+  footer span, footer a {
+    pointer-events: auto;
     color: inherit;
     text-decoration: none;
     transition: color 200ms ease;
   }
   footer a:hover { color: var(--text-primary); }
+  footer .sep { color: rgba(255, 255, 255, 0.12); }
 
-  /* ─── animations ──────────────────────────────────────── */
+  /* ─── animations ───────────────────────────────────── */
   @keyframes rise {
-    from { opacity: 0; transform: translateY(12px); }
+    from { opacity: 0; transform: translateY(8px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  @keyframes ruleIn { to { transform: scaleX(1); } }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
-    .glyph, .wordmark, .tagline, .form-panel { opacity: 1; }
-    .rule { transform: scaleX(1); }
+    .wordmark, .tagline, .pill, .caption { opacity: 1; }
   }
 
-  /* ─── small screens ───────────────────────────────────── */
+  /* ─── small screens ────────────────────────────────── */
   @media (max-width: 560px) {
-    header { font-size: 10px; }
-    .brand .meta .sub { display: none; }
-    .header-right .label { display: none; }
-    .field { flex-direction: column; padding: 8px; border-radius: var(--radius-window); gap: 6px; }
-    .field input { padding: 14px 16px; text-align: center; }
-    .field button { padding: 14px 18px; justify-content: center; }
-    footer { flex-direction: column; text-align: center; }
+    .pill { height: 56px; padding: 0 6px 0 18px; }
+    .pill input { font-size: 16px; }
+    .pill button { width: 42px; height: 42px; }
+    footer { font-size: 9px; gap: 14px; }
   }
 </style>
 </head>
 <body>
   <div class="frame">
-
-    <header>
-      <div class="brand">
-        <div class="badge" aria-hidden="true">
-          <!-- ram glyph -->
-          <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
-            <path d="M 40 70 C 40 40, 40 22, 26 18 C 16 15, 10 22, 14 30" />
-            <path d="M 40 70 C 40 40, 40 22, 54 18 C 64 15, 70 22, 66 30" />
-          </svg>
-        </div>
-        <div class="meta">
-          <div class="name">Aries</div>
-          <div class="sub">a traditional astrology application</div>
-        </div>
-      </div>
-
-      <div class="header-right">
-        <span class="label">v 0.1</span>
-        <span class="pill"><span class="dot"></span>private beta</span>
-      </div>
-    </header>
-
     <main>
-      <svg class="glyph" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
-        <path d="M 40 70 C 40 40, 40 22, 26 18 C 16 15, 10 22, 14 30" />
-        <path d="M 40 70 C 40 40, 40 22, 54 18 C 64 15, 70 22, 66 30" />
-      </svg>
+      <h1 class="wordmark" aria-label="Aries">
+        <span class="a">A</span><span>RIES</span>
+      </h1>
 
-      <h1 class="wordmark">Aries</h1>
+      <p class="tagline">Fast and Easy-to-use Astrology Software</p>
 
-      <div class="rule" aria-hidden="true"></div>
-
-      <p class="tagline">
-        A traditional astrology application,<br/>
-        built on the primary sources.
-      </p>
-
-      <div class="form-panel" id="wrap">
-        <div class="form-eyebrow"><span class="dot"></span>Request access</div>
-
-        <form class="form" id="form" novalidate>
-          <div class="field">
-            <input
-              id="email"
-              type="email"
-              name="email"
-              autocomplete="email"
-              placeholder="your email"
-              required
-              spellcheck="false"
-              aria-label="email"
-            />
-            <button type="submit" id="submit">
-              <span>join the beta</span>
-              <svg class="arrow" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M1 5h12M9 1l4 4-4 4"/>
-              </svg>
-            </button>
-          </div>
-          <div class="hint">Closed beta<span class="sep">·</span>invitations sent in waves</div>
-        </form>
-
-        <div class="confirm" id="confirm" aria-live="polite">
-          <svg class="check" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 14l6 6L23 8"/>
+      <form class="pill" id="form" novalidate>
+        <!-- thin globe glyph, matches the spotlight's armillary icon -->
+        <svg class="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+          <circle cx="10" cy="10" r="7.5"/>
+          <path d="M2.5 10h15"/>
+          <path d="M10 2.5c2.5 2.6 2.5 12.4 0 15"/>
+          <path d="M10 2.5c-2.5 2.6-2.5 12.4 0 15"/>
+        </svg>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          autocomplete="email"
+          placeholder="your email"
+          required
+          spellcheck="false"
+          aria-label="email"
+        />
+        <button type="submit" id="submit" aria-label="Request access">
+          <svg class="arrow" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M1 5h12M9 1l4 4-4 4"/>
           </svg>
-          <h3>Thank you.</h3>
-          <p>You're on the list.</p>
-        </div>
+        </button>
+      </form>
+
+      <div class="caption">
+        <span class="dot"></span>Private beta &middot; invitations sent in waves
+      </div>
+
+      <div class="confirm" id="confirm" aria-live="polite">
+        <svg class="check" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 14l6 6L23 8"/>
+        </svg>
+        <h3>You're on the list.</h3>
+        <p>Thank you</p>
       </div>
     </main>
 
     <footer>
-      <div>© MMXXVI Maxim Lange</div>
-      <div>
-        <a href="mailto:hello@primum-mobile.dev">hello@primum-mobile.dev</a>
-      </div>
+      <span>© MMXXVI Maxim Lange</span>
+      <span class="sep">·</span>
+      <a href="mailto:hello@primum-mobile.dev">hello@primum-mobile.dev</a>
     </footer>
-
   </div>
 
 <script>
   // Replace FORM_ID with your Formspree endpoint id once provisioned.
   const FORMSPREE_ENDPOINT = 'https://formspree.io/f/FORM_ID';
 
-  const form    = document.getElementById('form');
-  const wrap    = document.getElementById('wrap');
-  const email   = document.getElementById('email');
-  const submit  = document.getElementById('submit');
-  const field   = email.parentElement;
+  const form   = document.getElementById('form');
+  const main   = document.querySelector('main');
+  const email  = document.getElementById('email');
+  const submit = document.getElementById('submit');
+  const pill   = form;
 
   function flashError() {
     email.focus();
-    field.style.borderColor = 'var(--accent-gold)';
-    field.style.background  = 'rgba(197, 163, 109, 0.08)';
+    pill.style.borderColor = 'rgba(197, 163, 109, 0.6)';
+    pill.style.background  = 'rgba(197, 163, 109, 0.08)';
     setTimeout(() => {
-      field.style.borderColor = '';
-      field.style.background  = '';
-    }, 1400);
+      pill.style.borderColor = '';
+      pill.style.background  = '';
+    }, 1300);
   }
 
   form.addEventListener('submit', async (e) => {
@@ -461,9 +375,7 @@
 
     try {
       if (FORMSPREE_ENDPOINT.endsWith('FORM_ID')) {
-        // No endpoint provisioned yet — fall back to a delay so the
-        // confirmation state still demos correctly.
-        await new Promise(r => setTimeout(r, 400));
+        await new Promise(r => setTimeout(r, 380));
       } else {
         const res = await fetch(FORMSPREE_ENDPOINT, {
           method: 'POST',
@@ -472,7 +384,7 @@
         });
         if (!res.ok) throw new Error('submit failed');
       }
-      wrap.classList.add('is-sent');
+      main.classList.add('is-sent');
     } catch (err) {
       submit.disabled = false;
       flashError();
