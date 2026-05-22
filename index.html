@@ -302,6 +302,17 @@
     .pill button { width: 42px; height: 42px; }
     footer { font-size: 9px; gap: 14px; }
   }
+
+  /* EmailOctopus loader host — visually hidden offscreen but still
+     accessible to JS so we can pull the email value through it. */
+  #eo-host {
+    position: fixed;
+    left: -10000px; top: 0;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
 </style>
 </head>
 <body>
@@ -351,20 +362,15 @@
       </div>
     </main>
 
-    <!-- Hidden EmailOctopus relay. The visible pill above is the UI; on
-         submit we copy the email into #eo_email and trigger #eo_form, a
-         native HTML POST whose response lands in the offscreen iframe.
-         This is functionally identical to EmailOctopus's own loader, so
-         their server-side origin/referer checks pass cleanly. -->
-    <iframe name="eo_target" id="eo_target"
-            style="position:absolute;width:0;height:0;border:0;opacity:0;pointer-events:none"
-            tabindex="-1" aria-hidden="true"></iframe>
-    <form id="eo_form" hidden
-          action="https://eomail5.com/form/3ed5cabe-5579-11f1-ab27-77502d76e5d3"
-          method="POST" target="eo_target">
-      <input type="email" name="field_0" id="eo_email" />
-      <input type="hidden" name="hpc4b27b6e-eb38-11e9-be00-06b4694bee2a" value="" />
-    </form>
+    <!-- EmailOctopus official loader. Their JS injects a full form here
+         (with their cookies/tokens). We hide it visually and drive its
+         submit from the visible pill above. This is their supported
+         integration shape, so submissions pass every server-side check. -->
+    <div id="eo-host" aria-hidden="true">
+      <script async
+              src="https://eomail5.com/form/3ed5cabe-5579-11f1-ab27-77502d76e5d3.js"
+              data-form="3ed5cabe-5579-11f1-ab27-77502d76e5d3"></script>
+    </div>
 
     <footer>
       <span>© MMXXVI Max Lange</span>
@@ -374,21 +380,22 @@
   </div>
 
 <script>
-  // Visible pill is a fake form; on submit we relay into the hidden
-  // EmailOctopus form (#eo_form) whose response lands in #eo_target.
-  // This is the same shape EmailOctopus's own loader uses — native
-  // HTML POST, browser-managed Origin/Referer/cookies — so their
-  // server-side checks accept the submission and the contact appears
-  // in the EO dashboard. We never read the iframe's response (cross-
-  // origin), we just optimistically show the thank-you state.
+  // The visible pill is the UI; the real form is the one EmailOctopus's
+  // loader injects into #eo-host. On submit we poll for that injected
+  // form, copy the email into its field_0 input (using the React/Vue
+  // -friendly native setter so any framework-controlled state updates),
+  // and click their submit button — letting EmailOctopus's own JS run
+  // the validation and POST exactly the way they expect. As a hard
+  // safety net, if their form hasn't appeared within 2.5s we navigate
+  // the user to EmailOctopus's hosted page so the signup is never lost.
 
-  const form    = document.getElementById('form');
-  const main    = document.querySelector('main');
-  const email   = document.getElementById('email');
-  const submit  = document.getElementById('submit');
-  const pill    = form;
-  const eoForm  = document.getElementById('eo_form');
-  const eoEmail = document.getElementById('eo_email');
+  const HOSTED_FALLBACK = 'https://eomail5.com/form/3ed5cabe-5579-11f1-ab27-77502d76e5d3';
+
+  const form   = document.getElementById('form');
+  const main   = document.querySelector('main');
+  const email  = document.getElementById('email');
+  const submit = document.getElementById('submit');
+  const pill   = form;
 
   function flashError() {
     email.focus();
@@ -400,7 +407,41 @@
     }, 1300);
   }
 
-  form.addEventListener('submit', (e) => {
+  function findEOControls() {
+    const host = document.getElementById('eo-host');
+    if (!host) return null;
+    const emailInput =
+      host.querySelector('input[name="field_0"]') ||
+      host.querySelector('input[type="email"]');
+    const submitBtn =
+      host.querySelector('button[type="submit"]') ||
+      host.querySelector('input[type="submit"]');
+    if (emailInput && submitBtn) return { emailInput, submitBtn };
+    return null;
+  }
+
+  async function waitForEO(timeoutMs = 2500) {
+    const start = Date.now();
+    while (Date.now() - start < timeoutMs) {
+      const ctrl = findEOControls();
+      if (ctrl) return ctrl;
+      await new Promise(r => setTimeout(r, 80));
+    }
+    return null;
+  }
+
+  function setNativeValue(el, value) {
+    // Bypass React/Vue controlled-input shims so the framework reads
+    // the new value when we dispatch the input event.
+    const proto = Object.getPrototypeOf(el);
+    const setter = Object.getOwnPropertyDescriptor(proto, 'value');
+    if (setter && setter.set) setter.set.call(el, value);
+    else el.value = value;
+    el.dispatchEvent(new Event('input',  { bubbles: true }));
+    el.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const value = email.value.trim();
     if (!value || !/^\S+@\S+\.\S+$/.test(value)) {
@@ -409,9 +450,18 @@
     }
     submit.disabled = true;
 
+    const eo = await waitForEO();
+    if (!eo) {
+      // EO loader never showed up (ad-blocker, network glitch) — send
+      // the visitor to EmailOctopus's hosted form so they can still
+      // sign up. Their hosted page accepts the email param prefilled.
+      window.location.href = HOSTED_FALLBACK + '?field_0=' + encodeURIComponent(value);
+      return;
+    }
+
     try {
-      eoEmail.value = value;
-      eoForm.submit();
+      setNativeValue(eo.emailInput, value);
+      eo.submitBtn.click();
       main.classList.add('is-sent');
     } catch (err) {
       submit.disabled = false;
