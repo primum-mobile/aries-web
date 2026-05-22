@@ -345,8 +345,12 @@
   </div>
 
 <script>
-  // Replace FORM_ID with your Formspree endpoint id once provisioned.
-  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/FORM_ID';
+  // formsubmit.co AJAX endpoint — every submission is delivered as an
+  // email to support@aries.sh. No account, no dashboard; the inbox is
+  // the database. First submission after deploy will trigger a one-time
+  // activation email to support@aries.sh — click the link inside to
+  // unlock subsequent deliveries.
+  const SUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/support@aries.sh';
 
   const form   = document.getElementById('form');
   const main   = document.querySelector('main');
@@ -374,16 +378,20 @@
     submit.disabled = true;
 
     try {
-      if (FORMSPREE_ENDPOINT.endsWith('FORM_ID')) {
-        await new Promise(r => setTimeout(r, 380));
-      } else {
-        const res = await fetch(FORMSPREE_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: value, source: 'root' })
-        });
-        if (!res.ok) throw new Error('submit failed');
-      }
+      const res = await fetch(SUBMIT_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: value,
+          _subject: 'Aries — new beta signup',
+          _template: 'table',
+          _captcha: 'false',
+          source: 'aries.sh',
+        }),
+      });
+      if (!res.ok) throw new Error('submit failed');
+      const data = await res.json().catch(() => ({}));
+      if (data && data.success === 'false') throw new Error(data.message || 'submit failed');
       main.classList.add('is-sent');
     } catch (err) {
       submit.disabled = false;
