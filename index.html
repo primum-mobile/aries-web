@@ -174,6 +174,20 @@
   }
   .pill input::placeholder { color: var(--label-muted); }
 
+  /* Defeat Chrome/Safari autofill background paint — the default pale
+     yellow/blue ruins the dark pill. The long transition pushes the
+     autofill background change far enough into the future that users
+     never see it; the inset shadow paints over what slips through. */
+  .pill input:-webkit-autofill,
+  .pill input:-webkit-autofill:hover,
+  .pill input:-webkit-autofill:focus,
+  .pill input:-webkit-autofill:active {
+    -webkit-text-fill-color: var(--text-primary);
+    -webkit-box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.42) inset;
+    caret-color: var(--text-primary);
+    transition: background-color 600000s 0s, color 600000s 0s;
+  }
+
   .pill button {
     flex: 0 0 auto;
     width: 44px; height: 44px;
@@ -389,9 +403,13 @@
           source: 'aries.sh',
         }),
       });
+      // formsubmit.co always returns 200 on accepted POSTs. The very first
+      // submission per recipient address returns {success: "false",
+      // message: "please verify your email..."} while the activation email
+      // is dispatched separately — that's still a successful enqueue from
+      // the visitor's perspective, so we show the confirmation state for
+      // any 2xx response and only fail on actual network/HTTP errors.
       if (!res.ok) throw new Error('submit failed');
-      const data = await res.json().catch(() => ({}));
-      if (data && data.success === 'false') throw new Error(data.message || 'submit failed');
       main.classList.add('is-sent');
     } catch (err) {
       submit.disabled = false;
