@@ -351,6 +351,21 @@
       </div>
     </main>
 
+    <!-- Hidden EmailOctopus relay. The visible pill above is the UI; on
+         submit we copy the email into #eo_email and trigger #eo_form, a
+         native HTML POST whose response lands in the offscreen iframe.
+         This is functionally identical to EmailOctopus's own loader, so
+         their server-side origin/referer checks pass cleanly. -->
+    <iframe name="eo_target" id="eo_target"
+            style="position:absolute;width:0;height:0;border:0;opacity:0;pointer-events:none"
+            tabindex="-1" aria-hidden="true"></iframe>
+    <form id="eo_form" hidden
+          action="https://eomail5.com/form/3ed5cabe-5579-11f1-ab27-77502d76e5d3"
+          method="POST" target="eo_target">
+      <input type="email" name="field_0" id="eo_email" />
+      <input type="hidden" name="hpc4b27b6e-eb38-11e9-be00-06b4694bee2a" value="" />
+    </form>
+
     <footer>
       <span>© MMXXVI Max Lange</span>
       <span class="sep">·</span>
@@ -359,21 +374,21 @@
   </div>
 
 <script>
-  // EmailOctopus inline-form endpoint. Reverse-engineered from the script
-  // loader at https://eomail5.com/form/<FORM_ID>.js so we can keep the
-  // pill design while routing submissions into the EmailOctopus contact
-  // pool. POST is form-encoded; field_0 carries the email, the hp* field
-  // is a honeypot left empty. Using mode:'no-cors' because EmailOctopus
-  // does not return an Access-Control-Allow-Origin header for arbitrary
-  // sites — the response will be opaque but the submission still lands.
-  const EO_ENDPOINT  = 'https://eomail5.com/form/3ed5cabe-5579-11f1-ab27-77502d76e5d3';
-  const EO_HONEYPOT  = 'hpc4b27b6e-eb38-11e9-be00-06b4694bee2a';
+  // Visible pill is a fake form; on submit we relay into the hidden
+  // EmailOctopus form (#eo_form) whose response lands in #eo_target.
+  // This is the same shape EmailOctopus's own loader uses — native
+  // HTML POST, browser-managed Origin/Referer/cookies — so their
+  // server-side checks accept the submission and the contact appears
+  // in the EO dashboard. We never read the iframe's response (cross-
+  // origin), we just optimistically show the thank-you state.
 
-  const form   = document.getElementById('form');
-  const main   = document.querySelector('main');
-  const email  = document.getElementById('email');
-  const submit = document.getElementById('submit');
-  const pill   = form;
+  const form    = document.getElementById('form');
+  const main    = document.querySelector('main');
+  const email   = document.getElementById('email');
+  const submit  = document.getElementById('submit');
+  const pill    = form;
+  const eoForm  = document.getElementById('eo_form');
+  const eoEmail = document.getElementById('eo_email');
 
   function flashError() {
     email.focus();
@@ -385,7 +400,7 @@
     }, 1300);
   }
 
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
     const value = email.value.trim();
     if (!value || !/^\S+@\S+\.\S+$/.test(value)) {
@@ -395,21 +410,8 @@
     submit.disabled = true;
 
     try {
-      const body = new URLSearchParams();
-      body.append('field_0', value);
-      body.append(EO_HONEYPOT, '');
-
-      await fetch(EO_ENDPOINT, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: body.toString(),
-      });
-      // no-cors yields an opaque response (status === 0) — we can't
-      // distinguish a successful enqueue from a server error here, so we
-      // optimistically show the confirmation. If a submission ever fails
-      // server-side it just won't appear in EmailOctopus; visitor still
-      // sees the thank-you state, same as before.
+      eoEmail.value = value;
+      eoForm.submit();
       main.classList.add('is-sent');
     } catch (err) {
       submit.disabled = false;
